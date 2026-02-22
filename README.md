@@ -1,6 +1,6 @@
 # PTSC Surrogate Modelling (Eff / EffEX)
 
-A Supervised machine learning project for fast surrogate models of Parabolic Trough Solar Collector (PTSC) performance, trained on validated simulation-generated data from Engineering Equation Solver (EES).
+A supervised machine learning project for fast surrogate models of Parabolic Trough Solar Collector (PTSC) performance, trained on validated simulation-generated data from Engineering Equation Solver (EES).
 
 The objective is to replace slow physics-based simulations with near-instant predictions and enable rapid operating-point exploration.
 
