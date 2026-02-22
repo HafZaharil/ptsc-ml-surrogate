@@ -119,6 +119,7 @@ Included as a stable reference model:
 - strong baseline for non-linear regression
 - less sensitive to tuning than boosting in many cases
 - easy to interpret as a “bagged trees” benchmark
+- The .pkl file are not uploaded due to the huge size of the file.
 
 In short:
 - **HGB** = strong baseline, simple stack  
@@ -128,7 +129,3 @@ In short:
 The “best” model should be decided primarily using the **external validation metrics**, not only train/test split.
 
 ---
-
-## Repository layout (suggested)
-
-You can keep it simple:
