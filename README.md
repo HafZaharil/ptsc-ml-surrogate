@@ -152,7 +152,7 @@ Given user inputs:
 - Tamb (°C)  
 - K  
 
-With **Pressurehtf fixed** (default 20000), the script:
+With **Pressurehtf fixed** (default 20,000 kPa), the script:
 
 1. Performs a coarse grid search over Tin and Mhtf  
 2. Refines the search locally around the best coarse result  
