@@ -20,8 +20,8 @@ Given a dataset with these inputs:
 
 …it learns a mapping to either:
 
-- `Eff`  (efficiency target #1), or
-- `EffEX` (efficiency target #2)
+- `Eff`  (thermal efficiency)
+- `EffEX` (exergetic efficiency)
 
 Then it supports two main uses:
 
