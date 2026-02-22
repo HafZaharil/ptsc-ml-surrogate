@@ -1,6 +1,6 @@
 # PTSC Surrogate Modelling (Eff / EffEX)
 
-Fast surrogate models for parabolic trough solar collector (PTSC) performance, trained on validated simulation-generated data on Engineering equation solver.
+A machine learning project for fast surrogate models for parabolic trough solar collector (PTSC) performance, trained on validated simulation-generated data on Engineering equation solver.
 
 The goal is to replace slow physics-based simulations with near-instant predictions and to support rapid operating-point searches.
 
@@ -96,7 +96,7 @@ This is a quick internal check and not a substitute for external validation.
 
 ⸻
 
-## 3) External validation
+3) External validation
 
 If a separate validation CSV is provided, the same metrics are reported on that file.
 
@@ -130,7 +130,7 @@ This turns the surrogate into a practical optimisation tool.
 
 ⸻
 
-Models Used
+## Models Used
 
 Tree-based regression models are chosen because PTSC behaviour is:
 	•	Non-linear
@@ -157,7 +157,7 @@ Model selection should be based primarily on external validation metrics.
 
 ⸻
 
-Notes on model files
+## Notes on model files
 
 Pre-trained .pkl model files are not uploaded due to large file size.
 
