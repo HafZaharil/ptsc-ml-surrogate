@@ -1,4 +1,4 @@
-PTSC Surrogate Modelling (Eff / EffEX)
+##PTSC Surrogate Modelling (Eff / EffEX)
 
 Fast surrogate models for parabolic trough solar collector (PTSC) performance, trained on simulation-generated data.
 
