@@ -168,16 +168,43 @@ This transforms the surrogate into a practical optimisation tool rather than a s
 ## Repository Structure
 
 ```
+├── models/
+│   ├── eff_model_hgb_Eff.pkl
+│   ├── eff_model_hgb_EffEX.pkl
+│   ├── eff_model_xgb_Eff.pkl
+│   ├── eff_model_xgb_EffEX.pkl
+│
 ├── eff_model.py
 ├── effex_model.py
+│
 ├── README.md
 ├── .gitignore
 ├── LICENSE
 ```
 
-Pre-trained `.pkl` model files are not uploaded due to file size constraints.
+### Description
 
-Users can train models locally using their own generated datasets.
+- `models/`  
+  Contains pre-trained surrogate models for both thermal efficiency (Eff) and exergetic efficiency (EffEX).  
+  Separate models are provided for Histogram Gradient Boosting and XGBoost.
+
+- `eff_model.py`  
+  Training, validation, and operating-point search script for **thermal efficiency (Eff)**.
+
+- `effex_model.py`  
+  Training, validation, and operating-point search script for **exergetic efficiency (EffEX)**.
+
+- `README.md`  
+  Project documentation.
+
+- `.gitignore`  
+  Specifies files and directories excluded from version control.
+
+- `LICENSE`  
+  MIT license file.
+
+Pre-trained `.pkl` models are included for direct inference.  
+Users may retrain models using their own generated datasets if required.
 
 ---
 
