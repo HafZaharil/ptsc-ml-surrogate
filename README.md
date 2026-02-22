@@ -169,45 +169,92 @@ This transforms the surrogate into a practical optimisation tool rather than a s
 
 ```
 ├── models/
-│   ├── eff_model_hgb_Eff.pkl
-│   ├── eff_model_hgb_EffEX.pkl
-│   ├── eff_model_xgb_Eff.pkl
-│   ├── eff_model_xgb_EffEX.pkl
+│   ├── eff_hgb.pkl
+│   ├── eff_xgb.pkl
+│   ├── effex_hgb.pkl
+│   ├── effex_xgb.pkl
 │
-├── eff_model.py
-├── effex_model.py
+├── eff_model.py                # Full version (HGB + XGBoost + Random Forest)
+├── eff_model_no_rf.py          # Version without Random Forest
+│
+├── effex_model.py              # Full version (HGB + XGBoost + Random Forest)
+├── effex_model_no_rf.py        # Version without Random Forest
 │
 ├── README.md
 ├── .gitignore
 ├── LICENSE
 ```
 
-### Description
+## Description
 
-- `models/`  
-  Contains pre-trained surrogate models for both thermal efficiency (Eff) and exergetic efficiency (EffEX).  
-  Separate models are provided for Histogram Gradient Boosting and XGBoost.
-  Random forest models are not available due to its large size
+### models/
 
-- `eff_model.py`  
-  Training, validation, and operating-point search script for **thermal efficiency (Eff)**.
+Contains pre-trained surrogate models for both:
 
-- `effex_model.py`  
-  Training, validation, and operating-point search script for **exergetic efficiency (EffEX)**.
+- Thermal efficiency (**Eff**)
+- Exergetic efficiency (**EffEX**)
 
-- `README.md`  
-  Project documentation.
+Separate models are provided for:
 
-- `.gitignore`  
-  Specifies files and directories excluded from version control.
+- Histogram Gradient Boosting (HGB)
+- XGBoost
 
-- `LICENSE`  
-  MIT license file.
-
-Pre-trained `.pkl` models are included for direct inference.  
-Users may retrain models using their own generated datasets if required.
+Random Forest models are not included in the repository due to large file size constraints.
 
 ---
+
+### eff_model.py
+
+Training, validation, and operating-point search script for **thermal efficiency (Eff)**.
+
+This script:
+- Trains Histogram Gradient Boosting and XGBoost models
+- Reports train/test metrics
+- Supports optional external validation
+- Includes an interactive operating-point search tool
+
+---
+
+### effex_model.py
+
+Training, validation, and operating-point search script for **exergetic efficiency (EffEX)**.
+
+Functionality mirrors `eff_model.py`, but uses **EffEX** as the target variable.
+
+---
+
+### README.md
+
+Project documentation describing:
+
+- Objective and methodology  
+- Model choices  
+- Data structure  
+- Operating-point search logic  
+- Repository structure  
+
+---
+
+### .gitignore
+
+Specifies files and directories excluded from version control, including:
+
+- Local datasets  
+- Temporary files  
+- Python cache files  
+- Large training artefacts  
+
+---
+
+### LICENSE
+
+MIT License file defining usage permissions.
+
+---
+
+Pre-trained `.pkl` models are included for direct inference.
+
+Users may retrain the models locally using their own generated datasets if required.
 
 ## Intended Use
 
