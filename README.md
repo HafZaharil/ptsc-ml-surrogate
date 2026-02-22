@@ -1,167 +1,201 @@
 # PTSC Surrogate Modelling (Eff / EffEX)
 
-A machine learning project for fast surrogate models for parabolic trough solar collector (PTSC) performance, trained on validated simulation-generated data on Engineering equation solver.
+A **machine learning project** for fast surrogate models of Parabolic Trough Solar Collector (PTSC) performance, trained on validated simulation-generated data from Engineering Equation Solver (EES).
 
-The goal is to replace slow physics-based simulations with near-instant predictions and to support rapid operating-point searches.
+The objective is to replace slow physics-based simulations with near-instant predictions and enable rapid operating-point exploration.
 
-This repository trains and compares tree-based regression models and provides an interactive “max finder” that searches for high-efficiency operating points under given ambient conditions.
+This repository trains and compares tree-based regression models and provides an interactive search tool to identify high-efficiency operating conditions.
 
-⸻
+---
 
-## What this project does
+## Project Overview
 
-Given the following inputs:
-	•	Mhtf (mass flow rate)
-	•	Pressurehtf (HTF pressure)
-	•	Tin (inlet temperature)
-	•	DNI (direct normal irradiance)
-	•	Tamb (ambient temperature)
-	•	K (model factor from the dataset)
-#The model learns a mapping to either:
-	•	Eff (thermal efficiency)
-	•	EffEX (exergetic efficiency)
+The surrogate models learn the relationship between operating conditions and PTSC performance.
 
-Conceptually:
+### Input Features
 
-Input:  (Mhtf, Pressurehtf, Tin, DNI, Tamb, K)
-Output: Predicted Eff / EffEX
+- **Mhtf** — Mass flow rate  
+- **Pressurehtf** — Heat transfer fluid pressure  
+- **Tin** — Inlet temperature  
+- **DNI** — Direct normal irradiance  
+- **Tamb** — Ambient temperature  
+- **K** — Model factor from dataset  
 
-Once trained, the surrogate can be used for:
-	1.	Prediction
-Quickly estimate Eff or EffEX for new operating conditions.
-	2.	Search
-For given ambient conditions (DNI, Tamb, K) and fixed Pressurehtf:
-	•	Find the global best predicted efficiency on a Tin–Mhtf grid.
-	•	Find the best predicted efficiency for each Tin from 350 K to 850 K (step 50 K), including the Mhtf that achieves it.
+### Target Outputs
 
-⸻
+- **Eff** — Thermal efficiency  
+- **EffEX** — Exergetic efficiency  
 
-## Why surrogate modelling?
+After training, the model predicts efficiency directly from operating conditions without requiring repeated thermodynamic simulations.
 
-Detailed PTSC simulations based on physics models can become slow when running large parameter sweeps.
+---
 
-A surrogate model replaces repeated physics runs with a learned mapping:
+## Why Surrogate Modelling?
 
+Detailed PTSC simulations based on thermodynamic and heat-transfer models can become computationally expensive during:
+
+- Large parametric sweeps  
+- Sensitivity analysis  
+- Optimisation loops  
+
+A surrogate model replaces repeated physics evaluations with a trained regression function:
+
+```
 (Mhtf, Pressurehtf, Tin, DNI, Tamb, K)
-↓
-Predicted Eff or EffEX
+                ↓
+     Predicted Eff / EffEX
+```
 
-After training, predictions are extremely fast and suitable for:
-	•	Dense grid searches
-	•	Sensitivity checks
-	•	Rapid operating-point exploration
-	•	Decision-support workflows
+Once trained, predictions are extremely fast and suitable for:
 
-⸻
+- Dense grid searches  
+- Sensitivity studies  
+- Rapid operating-point exploration  
+- Decision-support workflows  
+
+---
 
 ## Methodology
 
-1) Data
+### 1. Data Generation
 
-The training and validation datasets are generated from a physics-based simulation pipeline.
+Training and validation datasets are generated from a validated physics-based simulation pipeline implemented in EES.
 
 Expected CSV columns:
 
-Features:
-	•	Mhtf
-	•	Pressurehtf
-	•	Tin
-	•	DNI
-	•	Tamb
-	•	K
+#### Features
 
-Target:
-	•	Eff  (for Eff script)
-	•	EffEX (for EffEX script)
+- Mhtf  
+- Pressurehtf  
+- Tin  
+- DNI  
+- Tamb  
+- K  
 
-Basic cleaning steps in code:
-	•	Strip column names
-	•	Replace inf and -inf with NaN
-	•	Drop rows with missing values in features or target
+#### Target
 
-⸻
+- Eff (for Eff model)  
+- EffEX (for EffEX model)  
 
-2) Train/test split (sanity check)
+---
 
-The training CSV is split into train/test (default 80/20) to check:
-	•	Whether the model is learning meaningful structure
-	•	Whether obvious overfitting or numerical instability appears
+### 2. Data Cleaning
 
-Metrics reported:
-	•	MAE
-	•	RMSE
-	•	R²
+The scripts perform basic preprocessing:
 
-This is a quick internal check and not a substitute for external validation.
+- Strip column names  
+- Replace `inf` and `-inf` with `NaN`  
+- Drop rows with missing values in features or target  
 
-⸻
+---
 
-3) External validation
+### 3. Train/Test Split
 
-If a separate validation CSV is provided, the same metrics are reported on that file.
+The training dataset is split (default 80/20) to provide a quick internal performance check.
 
-External validation performance should be used to determine the final model choice.
+Reported metrics:
 
-⸻
+- **MAE** (Mean Absolute Error)  
+- **RMSE** (Root Mean Squared Error)  
+- **R²** (Coefficient of Determination)  
 
-4) Grid-based operating-point search (“max finder”)
+This verifies that the model is learning meaningful structure and not exhibiting obvious instability.
 
-For a selected model:
+---
 
-User inputs:
-	•	DNI
-	•	Tamb (°C)
-	•	K
+### 4. External Validation
 
-The script:
-	•	Converts Tamb to Kelvin
-	•	Fixes Pressurehtf to a constant (default 20000)
-	•	Searches over Tin and Mhtf
+If a separate validation dataset is provided, the same metrics are computed on unseen combinations.
 
-Search strategy:
-	•	Coarse grid over the full domain
-	•	Fine grid around the best coarse point
+External validation performance should guide final model selection.
 
-The script prints:
-	1.	The global best predicted operating point
-	2.	The best predicted efficiency for each Tin from 350 K to 850 K (step 50 K), including the mass flow rate that achieves it
-
-This turns the surrogate into a practical optimisation tool.
-
-⸻
+---
 
 ## Models Used
 
-Tree-based regression models are chosen because PTSC behaviour is:
-	•	Non-linear
-	•	Feature-interactive
-	•	Structured tabular data
+Tree-based regression models are selected because PTSC behaviour exhibits:
 
-Histogram-Based Gradient Boosting (scikit-learn)
-	•	Strong baseline
-	•	Good accuracy
-	•	Fast inference
-	•	No external dependency
+- Strong non-linearity  
+- Interaction between variables  
+- Structured tabular data characteristics  
 
-XGBoost
-	•	Often achieves high accuracy on tabular data
-	•	Robust boosting implementation
-	•	Optional dependency
+### Histogram-Based Gradient Boosting (scikit-learn)
 
-Random Forest 
-	•	Stable baseline
-	•	Lower sensitivity to tuning
-	•	Useful cross-check against boosting methods
+- Strong baseline model  
+- Good accuracy  
+- Fast inference  
+- Minimal dependency stack  
 
-Model selection should be based primarily on external validation metrics.
+### XGBoost
 
-⸻
+- Often high performance on tabular regression  
+- Robust gradient boosting implementation  
+- Optional dependency  
 
-## Notes on model files
+### Random Forest
 
-Pre-trained .pkl model files are not uploaded due to large file size.
+- Stable benchmark model  
+- Less sensitive to hyperparameters  
+- Useful comparison against boosting approaches  
 
-Users can:
-	•	Train models locally using their own generated datasets
-	•	Or adapt the scripts to their own PTSC datasets
+Model choice should be determined primarily by external validation metrics.
+
+---
+
+## Grid-Based Operating-Point Search
+
+The repository includes an interactive search tool.
+
+Given user inputs:
+
+- DNI  
+- Tamb (°C)  
+- K  
+
+With **Pressurehtf fixed** (default 20000), the script:
+
+1. Performs a coarse grid search over Tin and Mhtf  
+2. Refines the search locally around the best coarse result  
+3. Reports:
+   - Global maximum predicted efficiency  
+   - Best predicted efficiency for each Tin from **350 K to 850 K (step 50 K)**  
+   - The corresponding mass flow rate for each Tin  
+
+This transforms the surrogate into a practical optimisation tool rather than a simple predictor.
+
+---
+
+## Repository Structure
+
+```
+├── eff_model.py
+├── effex_model.py
+├── README.md
+├── .gitignore
+├── LICENSE
+```
+
+Pre-trained `.pkl` model files are not uploaded due to file size constraints.
+
+Users can train models locally using their own generated datasets.
+
+---
+
+## Intended Use
+
+This project demonstrates how machine learning can accelerate thermodynamic modelling workflows.
+
+Suitable applications include:
+
+- Engineering optimisation research  
+- Surrogate modelling studies  
+- Rapid parametric exploration  
+- Machine learning in energy systems  
+
+---
+
+## License
+
+This project is released under the MIT License.
+
 	
