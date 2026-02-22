@@ -187,6 +187,7 @@ This transforms the surrogate into a practical optimisation tool rather than a s
 - `models/`  
   Contains pre-trained surrogate models for both thermal efficiency (Eff) and exergetic efficiency (EffEX).  
   Separate models are provided for Histogram Gradient Boosting and XGBoost.
+  Random forest models are not available due to its large size
 
 - `eff_model.py`  
   Training, validation, and operating-point search script for **thermal efficiency (Eff)**.
