@@ -1,6 +1,6 @@
-## PTSC Surrogate Modelling (Eff / EffEX)
+# PTSC Surrogate Modelling (Eff / EffEX)
 
-Fast surrogate models for parabolic trough solar collector (PTSC) performance, trained on simulation-generated data.
+Fast surrogate models for parabolic trough solar collector (PTSC) performance, trained on validated simulation-generated data on Engineering equation solver.
 
 The goal is to replace slow physics-based simulations with near-instant predictions and to support rapid operating-point searches.
 
@@ -8,7 +8,7 @@ This repository trains and compares tree-based regression models and provides an
 
 ⸻
 
-What this project does
+## What this project does
 
 Given the following inputs:
 	•	Mhtf (mass flow rate)
@@ -17,8 +17,7 @@ Given the following inputs:
 	•	DNI (direct normal irradiance)
 	•	Tamb (ambient temperature)
 	•	K (model factor from the dataset)
-
-The model learns a mapping to either:
+#The model learns a mapping to either:
 	•	Eff (thermal efficiency)
 	•	EffEX (exergetic efficiency)
 
@@ -37,7 +36,7 @@ For given ambient conditions (DNI, Tamb, K) and fixed Pressurehtf:
 
 ⸻
 
-Why surrogate modelling?
+## Why surrogate modelling?
 
 Detailed PTSC simulations based on physics models can become slow when running large parameter sweeps.
 
@@ -55,7 +54,7 @@ After training, predictions are extremely fast and suitable for:
 
 ⸻
 
-Methodology
+## Methodology
 
 1) Data
 
@@ -97,7 +96,7 @@ This is a quick internal check and not a substitute for external validation.
 
 ⸻
 
-3) External validation
+## 3) External validation
 
 If a separate validation CSV is provided, the same metrics are reported on that file.
 
@@ -149,7 +148,7 @@ XGBoost
 	•	Robust boosting implementation
 	•	Optional dependency
 
-Random Forest (if included)
+Random Forest 
 	•	Stable baseline
 	•	Lower sensitivity to tuning
 	•	Useful cross-check against boosting methods
@@ -165,3 +164,4 @@ Pre-trained .pkl model files are not uploaded due to large file size.
 Users can:
 	•	Train models locally using their own generated datasets
 	•	Or adapt the scripts to their own PTSC datasets
+	
