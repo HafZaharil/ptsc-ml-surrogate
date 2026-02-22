@@ -75,7 +75,7 @@ Metrics reported:
 
 This is mainly a fast internal check. It is not a substitute for external validation.
 
-### 3) External validation (recommended)
+### 3) External validation 
 If you provide a separate validation CSV, the script reports the same metrics on that file.
 This is the main indicator of how well the surrogate generalises to unseen combinations.
 
@@ -108,7 +108,7 @@ Chosen as a strong baseline:
 - handles non-linear behaviour well
 - simpler dependency stack than XGBoost
 
-### XGBoost (optional)
+### XGBoost 
 Included because it is often a top performer for tabular regression:
 - strong accuracy on complex relationships
 - robust boosting implementation
