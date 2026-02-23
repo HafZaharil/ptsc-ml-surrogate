@@ -70,7 +70,7 @@ Expected CSV columns:
 - Tin  
 - DNI  
 - Tamb  
-- K  
+- Incidence angle factor (K)  
 
 #### Target
 
