@@ -19,7 +19,7 @@ The surrogate models learn the relationship between operating conditions and PTS
 - **Tin** — Inlet temperature  
 - **DNI** — Direct normal irradiance  
 - **Tamb** — Ambient temperature  
-- **K** — Model factor from dataset  
+- **K** — Incident angle factor from dataset  
 
 ### Target Outputs
 
