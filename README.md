@@ -223,6 +223,59 @@ Functionality mirrors `eff_model.py`, but uses **EffEX** as the target variable.
 
 ---
 
+## Results and Discussion
+
+### Thermal efficiency - Train / Test Results
+
+| Model                        | Dataset | MAE    | RMSE   | R²     |
+|-----------------------------|--------|--------|--------|--------|
+| Histogram Gradient Boosting | Train  | 0.7915 | 1.5877 | 0.9985 |
+| Histogram Gradient Boosting | Test   | 0.8110 | 1.7520 | 0.9982 |
+| XGBoost                     | Train  | 0.3677 | 0.7566 | 0.9997 |
+| XGBoost                     | Test   | 0.4400 | 1.3115 | 0.9990 |
+| Random Forest               | Train  | 0.1761 | 0.6690 | 0.9997 |
+| Random Forest               | Test   | 0.4779 | 1.8152 | 0.9980 |
+
+### Thermal efficiency - Additional Validation Results (1000 random combinations)
+| Model                        | MAE    | RMSE   | R²     |
+|-----------------------------|--------|--------|--------|
+| Histogram Gradient Boosting | 3.6552 | 6.6540 | 0.9550 |
+| XGBoost                     | 3.5139 | 6.3267 | 0.9593 |
+| Random Forest               | 3.3152 | 6.3938 | 0.9584 |
+
+
+### Exergetic efficiency (EffEx) - Train / Test Results
+
+| Model                        | Dataset | MAE    | RMSE   | R²     |
+|-----------------------------|--------|--------|--------|--------|
+| Histogram Gradient Boosting | Train  | 0.7915 | 1.5877 | 0.9985 |
+| Histogram Gradient Boosting | Test   | 0.8110 | 1.7520 | 0.9982 |
+| XGBoost                     | Train  | 0.3677 | 0.7566 | 0.9997 |
+| XGBoost                     | Test   | 0.4400 | 1.3115 | 0.9990 |
+| Random Forest               | Train  | 0.1761 | 0.6690 | 0.9997 |
+| Random Forest               | Test   | 0.4779 | 1.8152 | 0.9980 |
+
+### Exergetic efficiency - Additional Validation Results (1000 random combinations)
+| Model                        | MAE    | RMSE   | R²     |
+|-----------------------------|--------|--------|--------|
+| Histogram Gradient Boosting | 3.6552 | 6.6540 | 0.9550 |
+| XGBoost                     | 3.5139 | 6.3267 | 0.9593 |
+| Random Forest               | 3.3152 | 6.3938 | 0.9584 |
+
+
+### Results and Discussion
+
+All three models demonstrate extremely high accuracy on the training and test datasets, with R² values exceeding 0.998. This indicates that the surrogate models successfully capture the underlying relationship between operating parameters and PTSC efficiency.
+
+However, the more meaningful assessment comes from the external validation dataset, which consists of independently generated operating conditions. Here, performance decreases to R² values in the range of 0.955–0.959. This drop is expected and confirms that the models are generalising rather than simply memorising the training data.
+
+Across all models, XGBoost shows the most consistent performance. It achieves the highest validation R² and the lowest RMSE, indicating better stability when predicting unseen conditions. Random Forest achieves the lowest MAE, suggesting strong point-wise accuracy, but its significantly lower training error compared to test and validation results indicates mild overfitting. Histogram Gradient Boosting performs reliably, though slightly below the other two models in all evaluation metrics.
+
+A key observation is that while Random Forest fits the training data extremely closely, its generalisation ability is weaker than XGBoost. In contrast, XGBoost maintains a better balance between fitting accuracy and robustness, making it more suitable for predictive applications. In addition, random forest training file is significanly larger than xgboost and the computation time took longer, without tangible imporvemetns on accuracy.
+
+
+Overall, all models are valid surrogate representations of the PTSC system. However, XGBoost is the most reliable choice for deployment, particularly when predicting performance under new or unseen operating conditions. Hence, XgBoost was chosen for the surrogate model calculator at the end of the  code.
+
 ### README.md
 
 Project documentation describing:
