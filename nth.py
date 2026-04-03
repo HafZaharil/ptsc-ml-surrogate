@@ -46,12 +46,14 @@ pd.set_option("display.max_rows", None)
 # ------------------------------------------------------------
 # File paths
 # ------------------------------------------------------------
-TRAIN_PATH = "/Users/hafzaharil/Downloads/ML project/Data for training/generated_ml_dataset_surrogate_ready_corrected.csv"
-VALIDATION_PATH = "/Users/hafzaharil/Downloads/ML project/Validation data/validation_1000_random_combinations.csv"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-MODEL_PATH_HGB = "/Users/hafzaharil/Downloads/eff_model_hist_gradient_boosting_Eff.pkl"
-MODEL_PATH_XGB = "/Users/hafzaharil/Downloads/eff_model_xgb_Eff.pkl"
-MODEL_PATH_RF  = "/Users/hafzaharil/Downloads/eff_model_rf_Eff.pkl"
+TRAIN_PATH = os.path.join(BASE_DIR, "eff_train.csv")
+VALIDATION_PATH = os.path.join(BASE_DIR, "eff_validation.csv")
+
+MODEL_PATH_HGB = os.path.join(BASE_DIR, "eff_model_hist_gradient_boosting_Eff.pkl")
+MODEL_PATH_XGB = os.path.join(BASE_DIR, "eff_model_xgb_Eff.pkl")
+MODEL_PATH_RF  = os.path.join(BASE_DIR, "eff_model_rf_Eff.pkl")
 
 # ------------------------------------------------------------
 # Search settings
